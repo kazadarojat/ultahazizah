@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Azizah Annurumi! 🎂✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti untuk efek konfeti meriah -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Tone.js untuk efek suara perayaan tanpa file eksternal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 0%, #311428 0%, #140c18 45%, #030305 100%);
+            min-height: 100vh;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            color: #f8fafc;
+        }
+
+        .font-display {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        .font-royal {
+            font-family: 'Cinzel Decorative', serif;
+        }
+
+        /* Animasi melayang lembut & mewah untuk kado saat diam */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-14px) rotate(1.8deg) scale(1.02); }
+        }
+
+        .gift-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Animasi cincin aura berputar di belakang kado */
+        @keyframes spinSlow {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes spinReverseSlow {
+            0% { transform: translate(-50%, -50%) rotate(360deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        }
+
+        .aura-ring-1 {
+            animation: spinSlow 18s linear infinite;
+        }
+
+        .aura-ring-2 {
+            animation: spinReverseSlow 24s linear infinite;
+        }
+
+        /* Animasi debu emas melayang naik di latar belakang */
+        @keyframes goldDustRise {
+            0% {
+                transform: translateY(105vh) scale(0.4);
+                opacity: 0;
+            }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.8; }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .gold-particle {
+            position: absolute;
+            border-radius: 9999px;
+            background: radial-gradient(circle, #fef08a 0%, #f59e0b 60%, transparent 100%);
+            box-shadow: 0 0 10px #fde047;
+            pointer-events: none;
+            animation: goldDustRise linear infinite;
+        }
+
+        /* Animasi guncangan saat kado diklik */
+        @keyframes shakeHard {
+            0% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.1) rotate(-9deg); }
+            40% { transform: scale(1.15) rotate(9deg); }
+            60% { transform: scale(1.1) rotate(-7deg); }
+            80% { transform: scale(1.05) rotate(7deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .gift-shake {
+            animation: shakeHard 0.45s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        /* Animasi tegangan dramatis sebelum kado meledak terbuka */
+        @keyframes giftChargeUp {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.18) rotate(-11deg); }
+            50% { transform: scale(0.86) rotate(11deg); }
+            75% { transform: scale(1.25) rotate(-8deg); }
+            90% { transform: scale(0.84) rotate(6deg); }
+            100% { transform: scale(1.32) rotate(0deg); }
+        }
+
+        .gift-charge {
+            animation: giftChargeUp 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+        }
+
+        /* Animasi tutup kado terbang berputar tinggi */
+        @keyframes lidFlyOff {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            30% {
+                transform: translateY(-145px) translateX(-30px) rotate(-32deg) scale(1.22);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-420px) translateX(150px) rotate(125deg) scale(0.45);
+                opacity: 0;
+            }
+        }
+
+        .lid-open {
+            animation: lidFlyOff 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Pancaran sinar emas dari dalam kotak saat tutup terbuka */
+        @keyframes innerLightBeam {
+            0% {
+                opacity: 0;
+                transform: scaleY(0.1) scaleX(0.4);
+            }
+            35% {
+                opacity: 1;
+                transform: scaleY(1.45) scaleX(1.4);
+            }
+            100% {
+                opacity: 0;
+                transform: scaleY(1.9) scaleX(1.9);
+            }
+        }
+
+        .light-beam-active {
+            animation: innerLightBeam 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Gelombang kejut cincin emas ganda (Shockwave) */
+        @keyframes shockwaveExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 1;
+                border-width: 10px;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(3.8);
+                opacity: 0;
+                border-width: 1px;
+            }
+        }
+
+        .shockwave-active {
+            animation: shockwaveExpand 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .shockwave-delayed {
+            animation: shockwaveExpand 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.16s forwards;
+        }
+
+        /* Kilatan cahaya layar singkat saat meledak */
+        @keyframes screenFlash {
+            0% { opacity: 0; }
+            25% { opacity: 0.65; }
+            100% { opacity: 0; }
+        }
+
+        .flash-active {
+            animation: screenFlash 0.7s ease-out forwards;
+        }
+
+        /* Animasi kotak bawah bergetar lalu menghilang setelah memancarkan isi */
+        @keyframes boxFadeOut {
+            0% { transform: scale(1); opacity: 1; }
+            35% { transform: scale(1.24, 0.86); opacity: 1; }
+            65% { transform: scale(0.94, 1.16); opacity: 0.85; }
+            100% { transform: scale(0.3) translateY(80px); opacity: 0; }
+        }
+
+        .box-vanish {
+            animation: boxFadeOut 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Animasi muncul kartu ucapan (Pop Up) */
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.55) translateY(60px) rotateX(15deg);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.03) translateY(-8px) rotateX(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotateX(0deg);
+            }
+        }
+
+        .card-appear {
+            animation: cardReveal 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Animasi shimmer emas mengalir pada teks */
+        @keyframes goldShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .text-gold-shimmer {
+            background-size: 200% auto;
+            animation: goldShimmer 4s ease-in-out infinite;
+        }
+
+        /* Animasi partikel dekorasi latar belakang */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.45; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.2); }
+        }
+
+        .bg-blob {
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+
+        /* Efek kilau pada tombol */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 25%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.55);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        .btn-shine:hover::after {
+            left: 135%;
+        }
+
+        /* Bingkai cahaya mewah untuk kartu ucapan */
+        .luxury-card {
+            background: linear-gradient(145deg, rgba(28, 20, 32, 0.93) 0%, rgba(10, 8, 14, 0.97) 100%);
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 55px -8px rgba(245, 158, 11, 0.28), 0 0 35px -5px rgba(244, 63, 94, 0.25), inset 0 1px 1px 0 rgba(253, 224, 71, 0.35);
+        }
+
+        /* Animasi Balon Emas & Rose-Gold Melayang */
+        @keyframes balloonRise {
+            0% {
+                transform: translateY(110vh) translateX(0px) rotate(-4deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.95; }
+            50% { transform: translateY(45vh) translateX(18px) rotate(4deg); }
+            90% { opacity: 0.95; }
+            100% {
+                transform: translateY(-25vh) translateX(-12px) rotate(-3deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-balloon {
+            position: fixed;
+            bottom: -120px;
+            z-index: 25;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: transform 0.15s ease-out;
+            animation: balloonRise linear forwards;
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.6));
+        }
+
+        .floating-balloon:hover {
+            transform: scale(1.12);
+        }
+
+        /* Animasi Lentera Harapan Terbang ke Langit */
+        @keyframes lanternAscend {
+            0% {
+                transform: translate(-50%, 0) scale(0.75);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -25px) scale(1);
+            }
+            85% {
+                opacity: 0.95;
+            }
+            100% {
+                transform: translate(-50%, -85vh) scale(0.45);
+                opacity: 0;
+            }
+        }
+
+        .wish-lantern-fly {
+            position: fixed;
+            left: 50%;
+            bottom: 18%;
+            z-index: 45;
+            pointer-events: none;
+            animation: lanternAscend 5.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6">
+
+    <!-- Lapisan Balon Melayang Interaktif -->
+    <div id="balloon-layer" class="fixed inset-0 pointer-events-none overflow-hidden z-20"></div>
+
+    <!-- Lapisan Lentera Harapan Terbang -->
+    <div id="lantern-layer" class="fixed inset-0 pointer-events-none overflow-hidden z-40"></div>
+
+    <!-- Lapisan Kilatan Cahaya Meriah Saat Kado Terbuka -->
+    <div id="celebration-flash" class="fixed inset-0 pointer-events-none z-50 opacity-0 bg-gradient-to-tr from-amber-300/70 via-white/90 to-rose-300/70"></div>
+
+    <!-- Dekorasi Latar Belakang (Bola Cahaya Emas, Rose-Gold & Debu Emas Melayang) -->
+    <div id="luxury-bg-layer" class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="bg-blob absolute -top-20 -left-20 w-72 h-72 sm:w-[26rem] sm:h-[26rem] bg-amber-500/20 rounded-full blur-3xl"></div>
+        <div class="bg-blob absolute top-1/3 -right-24 w-80 h-80 sm:w-[30rem] sm:h-[30rem] bg-rose-600/20 rounded-full blur-3xl" style="animation-delay: 2s;"></div>
+        <div class="bg-blob absolute -bottom-24 left-1/4 w-72 h-72 sm:w-[26rem] sm:h-[26rem] bg-yellow-400/15 rounded-full blur-3xl" style="animation-delay: 4s;"></div>
+        <!-- Pola bintik bintang emas halus -->
+        <div class="absolute inset-0 opacity-25" style="background-image: radial-gradient(#fde047 1px, transparent 1px); background-size: 38px 38px;"></div>
+    </div>
+
+    <!-- Kontainer Utama -->
+    <main class="relative z-10 w-full max-w-xl mx-auto flex flex-col items-center justify-center">
+
+        <!-- FASE 1: KOTAK KADO INTERAKTIF -->
+        <section id="gift-stage" class="flex flex-col items-center text-center transition-all duration-500 w-full">
+            <!-- Badge Petunjuk Atas -->
+            <div class="mb-6 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-zinc-900/90 backdrop-blur-md shadow-[0_0_25px_rgba(251,191,36,0.2)] border border-amber-400/40 text-amber-300 text-sm sm:text-base font-semibold">
+                <span class="animate-spin" style="animation-duration: 4s;">✨</span>
+                <span>Kejutan Mewah Untuk Azizah</span>
+                <span class="animate-spin" style="animation-duration: 4s;">✨</span>
+            </div>
+
+            <!-- Area Klik Kotak Kado (SVG Kustom Resolusi Tinggi) -->
+            <div id="gift-box-wrapper" role="button" tabindex="0" aria-label="Ketuk kado untuk membuka"
+                 class="relative cursor-pointer group p-4 sm:p-6 focus:outline-none gift-float">
+                
+                <!-- Cincin Aura Emas Berputar di Belakang Kado -->
+                <div class="aura-ring-1 pointer-events-none absolute top-1/2 left-1/2 w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-dashed border-amber-400/35"></div>
+                <div class="aura-ring-2 pointer-events-none absolute top-1/2 left-1/2 w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-dotted border-rose-400/30"></div>
+
+                <!-- Efek Cahaya di Belakang Kado yang Membesar Tiap Klik -->
+                <div id="gift-glow" class="absolute inset-4 bg-gradient-to-tr from-amber-500 via-rose-500 to-yellow-200 rounded-full blur-2xl opacity-45 transition-all duration-300 group-hover:opacity-75"></div>
+
+                <!-- Gelombang Kejut Cincin Emas Ganda Saat Terbuka -->
+                <div id="gift-shockwave" class="pointer-events-none absolute top-1/2 left-1/2 w-40 h-40 rounded-full border-amber-300 opacity-0 z-20"></div>
+                <div id="gift-shockwave-2" class="pointer-events-none absolute top-1/2 left-1/2 w-40 h-40 rounded-full border-rose-400 opacity-0 z-20"></div>
+
+                <!-- SVG Kado dengan Tutup & Badan Terpisah untuk Animasi -->
+                <svg id="gift-svg" class="relative w-56 h-56 sm:w-72 sm:h-72 drop-shadow-[0_22px_40px_rgba(245,158,11,0.35)] overflow-visible" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Bayangan Bawah -->
+                    <ellipse cx="120" cy="218" rx="75" ry="12" fill="#000000" fill-opacity="0.7"/>
+
+                    <!-- Pancaran Sinar Emas dari Dalam Kotak Saat Terbuka -->
+                    <g id="gift-light-beams" class="opacity-0" style="transform-origin: 120px 100px;">
+                        <polygon points="120,105 30,-30 210,-30" fill="url(#innerLightGrad)"/>
+                        <polygon points="120,105 70,-40 170,-40" fill="#FEF08A" fill-opacity="0.7"/>
+                    </g>
+
+                    <!-- BADAN KOTAK KADO -->
+                    <g id="gift-body">
+                        <!-- Kotak Utama -->
+                        <rect x="42" y="96" width="156" height="114" rx="18" fill="url(#boxGrad)"/>
+                        <!-- Bayangan bawah tutup di badan kotak -->
+                        <rect x="42" y="96" width="156" height="14" fill="#4C0519" fill-opacity="0.45"/>
+                        <!-- Pita Vertikal Tengah -->
+                        <rect x="104" y="96" width="32" height="114" fill="url(#ribbonGrad)"/>
+                        <!-- Garis Kilau Pita -->
+                        <rect x="108" y="96" width="4" height="114" fill="#FEF08A" fill-opacity="0.55"/>
+                        <!-- Tag Ucapan Kecil Menggantung -->
+                        <g transform="translate(142, 118) rotate(12)">
+                            <rect x="0" y="0" width="38" height="24" rx="6" fill="#18181B" stroke="#FBBF24" stroke-width="2"/>
+                            <circle cx="7" cy="12" r="2.5" fill="#FBBF24"/>
+                            <text x="13" y="15" fill="#FDE047" font-size="8" font-weight="bold" font-family="sans-serif">16th</text>
+                        </g>
+                    </g>
+
+                    <!-- TUTUP KOTAK KADO & PITA ATAS -->
+                    <g id="gift-lid" style="transform-origin: 120px 75px;">
+                        <!-- Pita Kupu-Kupu Kiri -->
+                        <path d="M120 64 C95 25, 52 32, 65 64 C72 80, 105 72, 120 64 Z" fill="url(#bowGrad)" stroke="#D97706" stroke-width="2"/>
+                        <!-- Pita Kupu-Kupu Kanan -->
+                        <path d="M120 64 C145 25, 188 32, 175 64 C168 80, 135 72, 120 64 Z" fill="url(#bowGrad)" stroke="#D97706" stroke-width="2"/>
+
+                        <!-- Badan Tutup Kado -->
+                        <rect x="32" y="62" width="176" height="36" rx="12" fill="url(#lidGrad)"/>
+                        <!-- Pita Vertikal Tutup -->
+                        <rect x="104" y="62" width="32" height="36" fill="url(#ribbonGrad)"/>
+                        <rect x="108" y="62" width="4" height="36" fill="#FEF08A" fill-opacity="0.5"/>
+
+                        <!-- Simpul Tengah Pita -->
+                        <rect x="106" y="50" width="28" height="22" rx="8" fill="url(#bowCenterGrad)" stroke="#B45309" stroke-width="1.5"/>
+                    </g>
+
+                    <!-- Kilau Bintang Berkelip di Sekeliling Kado -->
+                    <g class="animate-pulse">
+                        <path d="M24 55 L27 63 L35 66 L27 69 L24 77 L21 69 L13 66 L21 63 Z" fill="#FDE047"/>
+                        <path d="M216 42 L218 48 L224 50 L218 52 L216 58 L214 52 L208 50 L214 48 Z" fill="#FBCFE8"/>
+                        <path d="M214 148 L217 156 L225 159 L217 162 L214 170 L211 162 L203 159 L211 156 Z" fill="#FDE047"/>
+                        <path d="M22 155 L24 161 L30 163 L24 165 L22 171 L20 165 L14 163 L20 161 Z" fill="#FDE047"/>
+                    </g>
+
+                    <!-- Definisi Gradien Warna -->
+                    <defs>
+                        <linearGradient id="boxGrad" x1="42" y1="96" x2="198" y2="210" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#BE123C"/>
+                            <stop offset="0.5" stop-color="#881337"/>
+                            <stop offset="1" stop-color="#3F0D1E"/>
+                        </linearGradient>
+                        <linearGradient id="lidGrad" x1="32" y1="62" x2="208" y2="98" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E11D48"/>
+                            <stop offset="1" stop-color="#881337"/>
+                        </linearGradient>
+                        <linearGradient id="ribbonGrad" x1="104" y1="62" x2="136" y2="210" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FEF08A"/>
+                            <stop offset="0.5" stop-color="#F59E0B"/>
+                            <stop offset="1" stop-color="#B45309"/>
+                        </linearGradient>
+                        <linearGradient id="bowGrad" x1="65" y1="30" x2="175" y2="75" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FDE047"/>
+                            <stop offset="1" stop-color="#D97706"/>
+                        </linearGradient>
+                        <linearGradient id="bowCenterGrad" x1="106" y1="50" x2="134" y2="72" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FEF9C3"/>
+                            <stop offset="1" stop-color="#F59E0B"/>
+                        </linearGradient>
+                        <linearGradient id="innerLightGrad" x1="120" y1="105" x2="120" y2="-30" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FEF08A" stop-opacity="0.95"/>
+                            <stop offset="0.6" stop-color="#F59E0B" stop-opacity="0.4"/>
+                            <stop offset="1" stop-color="#F59E0B" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+                <!-- Floating Tap Feedback (+1 / Teks Semangat) -->
+                <div id="tap-feedback" class="pointer-events-none absolute top-4 right-4 font-display font-bold text-amber-300 text-xl opacity-0 transition-all duration-300">
+                    Tap! ✨
+                </div>
+            </div>
+
+            <!-- Instruksi & Progress Bar Pembuka Kado -->
+            <div class="mt-4 w-full max-w-xs sm:max-w-sm bg-zinc-900/85 backdrop-blur-md p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-amber-400/35">
+                <p id="instruction-text" class="font-display text-lg sm:text-xl font-bold text-amber-300 mb-1">
+                    Ketuk Kadonya Berkali-kali! 🎁
+                </p>
+                <p id="sub-instruction" class="text-xs sm:text-sm text-zinc-400 mb-4">
+                    Ayo buka perlahan untuk melihat kejutan di dalamnya...
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="w-full h-4 bg-zinc-800 rounded-full overflow-hidden p-0.5 shadow-inner border border-zinc-700/60">
+                    <div id="progress-bar" class="h-full w-0 bg-gradient-to-r from-rose-500 via-amber-400 to-yellow-200 rounded-full transition-all duration-300 ease-out shadow-[0_0_12px_rgba(251,191,36,0.7)]"></div>
+                </div>
+                <div class="flex justify-between items-center mt-2 text-xs font-semibold text-zinc-400">
+                    <span>Terkunci 🔒</span>
+                    <span>Terbuka 🎉</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 2: KARTU UCAPAN ULANG TAHUN (TERSEMBUNYI DI AWAL) -->
+        <section id="greeting-stage" class="hidden w-full">
+            <div class="luxury-card relative backdrop-blur-xl rounded-[2rem] p-6 sm:p-10 border border-amber-400/45 text-center overflow-hidden">
+                
+                <!-- Dekorasi Pita Sudut Atas & Bawah Kartu -->
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-300 via-rose-500 to-amber-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-300 via-rose-500 to-amber-300 opacity-70"></div>
+
+                <!-- Ornamen Sudut Mewah -->
+                <span class="absolute top-4 left-5 text-amber-400/60 text-lg animate-pulse">✦</span>
+                <span class="absolute top-4 right-5 text-amber-400/60 text-lg animate-pulse" style="animation-delay: 0.7s;">✦</span>
+
+                <!-- Badge Usia & Tanggal Spesial -->
+                <div class="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/95 text-amber-300 font-bold text-xs sm:text-sm mb-4 border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.18)]">
+                    <span>👑 Sweet Sixteen • 16 Tahun</span>
+                    <span class="text-amber-500/70">•</span>
+                    <span>20 November 2010 – 2026</span>
+                </div>
+
+                <!-- Ikon Kue Ulang Tahun Animasi dengan Aura Emas -->
+                <div class="my-2 flex justify-center">
+                    <div class="relative inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 p-4 rounded-full bg-gradient-to-tr from-zinc-900 via-rose-950/70 to-amber-950/70 shadow-[0_0_30px_rgba(251,191,36,0.28)] border border-amber-400/50">
+                        <span class="text-4xl sm:text-5xl animate-bounce" style="animation-duration: 2s;">🎂</span>
+                        <span class="absolute -top-1 -right-1 text-xl animate-spin" style="animation-duration: 5s;">✨</span>
+                        <span class="absolute -bottom-1 -left-1 text-xl animate-pulse" style="animation-delay: 0.5s;">👑</span>
+                    </div>
+                </div>
+
+                <!-- Judul Utama -->
+                <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-rose-400 text-gold-shimmer leading-tight mt-2 drop-shadow-sm">
+                    Selamat Ulang Tahun!
+                </h1>
+
+                <!-- Nama Penerima -->
+                <div class="mt-2 mb-5">
+                    <h2 class="font-royal text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 tracking-wider drop-shadow">
+                        Azizah Annurumi
+                    </h2>
+                    <div class="mt-3 inline-block px-4 py-1.5 rounded-xl bg-amber-400/10 text-amber-300 font-semibold text-sm sm:text-base border border-amber-400/35 shadow-inner">
+                        🗓️ 20 November 2010 — 20 November 2026
+                    </div>
+                </div>
+
+                <!-- Kotak Pesan Doa & Harapan -->
+                <div class="bg-zinc-900/80 rounded-2xl p-5 sm:p-6 border border-amber-400/25 text-zinc-200 text-sm sm:text-base leading-relaxed space-y-3 shadow-inner">
+                    <p class="font-semibold text-amber-300 text-base sm:text-lg">
+                        "Barakallahu fi umrik, Azizah! 🎉🌸"
+                    </p>
+                    <p>
+                        Selamat memasuki usia ke-<strong class="text-amber-200">16 tahun</strong>! Semoga di hari yang istimewa ini, segala doa baikmu dikabulkan, selalu diberikan kesehatan, kebahagiaan yang melimpah, serta langkah yang dimudahkan dalam meraih setiap cita-cita.
+                    </p>
+                    <p>
+                        Tetaplah menjadi pribadi yang ceria, anggun, baik hati, dan menginspirasi orang-orang di sekitarmu. Semoga tahun ini dipenuhi banyak momen indah, kejutan manis, dan senyuman! ✨💖
+                    </p>
+                </div>
+
+                <!-- LIFE COUNTER: Penghitung Perjalanan Hidup -->
+                <div class="mt-5 bg-gradient-to-r from-zinc-900/95 via-amber-950/30 to-zinc-900/95 rounded-2xl p-4 sm:p-5 border border-amber-400/35 shadow-[0_0_25px_rgba(251,191,36,0.12)]">
+                    <div class="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-amber-300 uppercase tracking-wider mb-3">
+                        <span>⏳</span>
+                        <span>Perjalanan Indah di Dunia</span>
+                        <span>✨</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                        <div class="bg-zinc-950/80 rounded-xl p-2.5 sm:p-3 border border-amber-400/20">
+                            <div id="life-days" class="font-display text-xl sm:text-2xl font-bold text-amber-200">5.844</div>
+                            <div class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Hari Bahagia</div>
+                        </div>
+                        <div class="bg-zinc-950/80 rounded-xl p-2.5 sm:p-3 border border-rose-400/20">
+                            <div id="life-hours" class="font-display text-xl sm:text-2xl font-bold text-rose-300">140.256</div>
+                            <div class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Jam Penuh Cerita</div>
+                        </div>
+                        <div class="bg-zinc-950/80 rounded-xl p-2.5 sm:p-3 border border-amber-400/20">
+                            <div id="life-minutes" class="font-display text-xl sm:text-2xl font-bold text-amber-300">8.415.360</div>
+                            <div class="text-[11px] sm:text-xs text-zinc-400 mt-0.5">Menit Berharga</div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-zinc-400 mt-2.5">
+                        Dihitung sejak <span class="text-amber-300/90 font-medium">20 November 2010</span> hingga hari istimewamu! 💫
+                    </p>
+                </div>
+
+                <!-- KARTU HARAPAN (MAKE A WISH) -->
+                <div class="mt-5 bg-zinc-900/85 rounded-2xl p-4 sm:p-5 border border-rose-400/35 text-left shadow-inner">
+                    <label for="wish-input" class="flex items-center gap-2 text-sm sm:text-base font-bold text-amber-300 mb-2">
+                        <span>🏮</span>
+                        <span>Kartu Harapan Usia Ke-16</span>
+                    </label>
+                    <p class="text-xs text-zinc-400 mb-3">
+                        Tuliskan satu doa atau harapan terbaikmu tahun ini, lalu terbangkan ke langit malam!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-2.5">
+                        <input id="wish-input" type="text" maxlength="90" placeholder="Contoh: Semoga selalu sehat & semua impian tercapai..."
+                               class="flex-1 px-4 py-3 rounded-xl bg-zinc-950/90 border border-amber-400/30 text-zinc-100 placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all">
+                        <button id="btn-send-wish" type="button"
+                                class="btn-shine px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-rose-500/25 hover:brightness-110 active:scale-95 transition-all whitespace-nowrap cursor-pointer">
+                            Terbangkan ✨
+                        </button>
+                    </div>
+                    <p id="wish-status" class="hidden mt-2.5 text-xs font-medium text-amber-300 flex items-center gap-1.5">
+                        <span>🌟</span>
+                        <span>Harapanmu telah diterbangkan ke langit! Semoga segera terwujud, Aamiin!</span>
+                    </p>
+                </div>
+
+                <!-- Tombol Aksi Interaktif (Konfeti Lagi & Ulangi Kado) -->
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button id="btn-more-confetti" type="button"
+                            class="btn-shine w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-300 via-yellow-400 to-rose-500 text-zinc-950 font-bold text-sm sm:text-base shadow-lg shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                        <span>🎆</span>
+                        <span>Pesta Kembang Api!</span>
+                    </button>
+
+                    <button id="btn-replay-gift" type="button"
+                            class="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-amber-300 font-semibold text-sm sm:text-base border border-zinc-700 hover:border-amber-400/50 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                        <span>🎁</span>
+                        <span>Buka Kado Lagi</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Konfigurasi jumlah ketukan untuk membuka kado
+            const MAX_TAPS = 7;
+            let currentTaps = 0;
+            let isOpened = false;
+            let audioInitialized = false;
+            let synth = null;
+            let balloonInterval = null;
+
+            // Referensi Elemen DOM
+            const giftStage = document.getElementById('gift-stage');
+            const greetingStage = document.getElementById('greeting-stage');
+            const giftBoxWrapper = document.getElementById('gift-box-wrapper');
+            const giftGlow = document.getElementById('gift-glow');
+            const giftLid = document.getElementById('gift-lid');
+            const giftBody = document.getElementById('gift-body');
+            const giftLightBeams = document.getElementById('gift-light-beams');
+            const giftShockwave = document.getElementById('gift-shockwave');
+            const giftShockwave2 = document.getElementById('gift-shockwave-2');
+            const celebrationFlash = document.getElementById('celebration-flash');
+            const luxuryBgLayer = document.getElementById('luxury-bg-layer');
+            const balloonLayer = document.getElementById('balloon-layer');
+            const lanternLayer = document.getElementById('lantern-layer');
+            const progressBar = document.getElementById('progress-bar');
+            const instructionText = document.getElementById('instruction-text');
+            const subInstruction = document.getElementById('sub-instruction');
+            const tapFeedback = document.getElementById('tap-feedback');
+            const btnMoreConfetti = document.getElementById('btn-more-confetti');
+            const btnReplayGift = document.getElementById('btn-replay-gift');
+            const lifeDaysEl = document.getElementById('life-days');
+            const lifeHoursEl = document.getElementById('life-hours');
+            const lifeMinutesEl = document.getElementById('life-minutes');
+            const wishInput = document.getElementById('wish-input');
+            const btnSendWish = document.getElementById('btn-send-wish');
+            const wishStatus = document.getElementById('wish-status');
+
+            // Hitung Life Counter (20 November 2010 - 20 November 2026)
+            function updateLifeCounter() {
+                const birthDate = new Date('2010-11-20T00:00:00');
+                const targetDate = new Date('2026-11-20T00:00:00');
+                const now = new Date();
+                const referenceDate = now > targetDate ? now : targetDate;
+                const diffMs = Math.max(referenceDate - birthDate, 0);
+
+                const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+                const totalMinutes = Math.floor(diffMs / (1000 * 60));
+
+                if (lifeDaysEl) lifeDaysEl.textContent = totalDays.toLocaleString('id-ID');
+                if (lifeHoursEl) lifeHoursEl.textContent = totalHours.toLocaleString('id-ID');
+                if (lifeMinutesEl) lifeMinutesEl.textContent = totalMinutes.toLocaleString('id-ID');
+            }
+            updateLifeCounter();
+
+            // Buat Balon Emas & Rose-Gold Melayang yang Bisa Dipecahkan (Pop)
+            function spawnSingleBalloon() {
+                if (!balloonLayer || !isOpened) return;
+
+                const palette = [
+                    { main: '#fbbf24', highlight: '#fef9c3', shadow: '#b45309' }, // Emas
+                    { main: '#f43f5e', highlight: '#ffe4e6', shadow: '#9f1239' }, // Rose-Gold / Crimson
+                    { main: '#f59e0b', highlight: '#fef08a', shadow: '#92400e' }, // Amber
+                    { main: '#fb7185', highlight: '#fff1f2', shadow: '#be123c' }  // Soft Pink
+                ];
+                const color = palette[Math.floor(Math.random() * palette.length)];
+                const size = Math.floor(Math.random() * 22) + 46; // 46px - 68px
+                const leftPos = Math.random() * 88 + 4; // 4% - 92%
+                const duration = Math.random() * 6 + 9; // 9s - 15s
+
+                const balloonEl = document.createElement('div');
+                balloonEl.className = 'floating-balloon';
+                balloonEl.style.left = `${leftPos}%`;
+                balloonEl.style.width = `${size}px`;
+                balloonEl.style.animationDuration = `${duration}s`;
+                balloonEl.title = 'Klik balon untuk memecahkannya! 🎈';
+
+                balloonEl.innerHTML = `
+                    <svg viewBox="0 0 64 96" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                        <path d="M32 64 Q36 74 29 82 T33 95" stroke="#fde047" stroke-width="1.5" stroke-opacity="0.7" fill="none"/>
+                        <polygon points="32,60 27,66 37,66" fill="${color.shadow}"/>
+                        <ellipse cx="32" cy="32" rx="25" ry="30" fill="${color.main}"/>
+                        <ellipse cx="23" cy="21" rx="6" ry="11" transform="rotate(-22 23 21)" fill="${color.highlight}" fill-opacity="0.65"/>
+                    </svg>
+                `;
+
+                // Interaksi klik/sentuh untuk memecahkan balon dengan konfeti mini
+                balloonEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const rect = balloonEl.getBoundingClientRect();
+                    const originX = (rect.left + rect.width / 2) / window.innerWidth;
+                    const originY = (rect.top + rect.height / 2) / window.innerHeight;
+
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 22,
+                            spread: 70,
+                            startVelocity: 24,
+                            scalar: 0.75,
+                            origin: { x: originX, y: originY },
+                            colors: [color.main, color.highlight, '#ffffff']
+                        });
+                    }
+
+                    if (audioInitialized && synth) {
+                        try {
+                            synth.triggerAttackRelease('G5', '32n');
+                        } catch (err) {}
+                    }
+
+                    balloonEl.remove();
+                });
+
+                balloonLayer.appendChild(balloonEl);
+
+                // Bersihkan otomatis setelah selesai terbang
+                setTimeout(() => {
+                    if (balloonEl.parentNode) balloonEl.remove();
+                }, duration * 1000 + 300);
+            }
+
+            function startBalloons() {
+                stopBalloons();
+                // Luncurkan gelombang awal 7 balon
+                for (let i = 0; i < 7; i++) {
+                    setTimeout(() => spawnSingleBalloon(), i * 350);
+                }
+                // Lanjutkan memunculkan balon secara berkala
+                balloonInterval = setInterval(() => {
+                    if (document.querySelectorAll('.floating-balloon').length < 12) {
+                        spawnSingleBalloon();
+                    }
+                }, 1800);
+            }
+
+            function stopBalloons() {
+                if (balloonInterval) {
+                    clearInterval(balloonInterval);
+                    balloonInterval = null;
+                }
+                if (balloonLayer) balloonLayer.innerHTML = '';
+            }
+
+            // Fitur Terbangkan Lentera Harapan
+            function releaseWishLantern() {
+                if (!wishInput || !lanternLayer) return;
+                const text = wishInput.value.trim();
+                const displayWish = text || "Semoga selalu bahagia & penuh berkah di usia 16! ✨";
+
+                const lantern = document.createElement('div');
+                lantern.className = 'wish-lantern-fly flex flex-col items-center';
+                lantern.innerHTML = `
+                    <div class="relative px-4 py-3 rounded-2xl bg-gradient-to-b from-amber-200 via-amber-400 to-orange-500 text-zinc-950 shadow-[0_0_35px_rgba(251,191,36,0.9)] border border-yellow-100 max-w-[240px] text-center">
+                        <div class="text-[10px] font-extrabold uppercase tracking-wider text-amber-950/80 mb-0.5">🏮 Harapan Azizah</div>
+                        <div class="text-xs sm:text-sm font-bold leading-snug break-words">"${displayWish.replace(/</g, '&lt;').replace(/>/g, '&gt;')}"</div>
+                        <div class="mx-auto mt-1.5 w-3 h-3 rounded-full bg-yellow-100 shadow-[0_0_12px_#fff]"></div>
+                    </div>
+                `;
+
+                lanternLayer.appendChild(lantern);
+                wishInput.value = '';
+
+                if (wishStatus) {
+                    wishStatus.classList.remove('hidden');
+                }
+
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 30,
+                        spread: 65,
+                        startVelocity: 28,
+                        shapes: ['star'],
+                        origin: { x: 0.5, y: 0.75 },
+                        colors: ['#fde047', '#fbbf24', '#ffffff']
+                    });
+                }
+
+                if (audioInitialized && synth) {
+                    try {
+                        const now = Tone.now();
+                        synth.triggerAttackRelease('E5', '16n', now);
+                        synth.triggerAttackRelease('G5', '16n', now + 0.1);
+                        synth.triggerAttackRelease('C6', '8n', now + 0.2);
+                    } catch (err) {}
+                }
+
+                setTimeout(() => {
+                    if (lantern.parentNode) lantern.remove();
+                }, 5600);
+            }
+
+            if (btnSendWish) {
+                btnSendWish.addEventListener('click', releaseWishLantern);
+            }
+            if (wishInput) {
+                wishInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        releaseWishLantern();
+                    }
+                });
+            }
+
+            // Buat partikel debu emas melayang secara dinamis untuk suasana mewah
+            function createLuxuryGoldDust() {
+                if (!luxuryBgLayer) return;
+                const particleCount = 26;
+                for (let i = 0; i < particleCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'gold-particle';
+                    const size = Math.random() * 4 + 2;
+                    dot.style.width = `${size}px`;
+                    dot.style.height = `${size}px`;
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.animationDuration = `${Math.random() * 8 + 7}s`;
+                    dot.style.animationDelay = `${Math.random() * 7}s`;
+                    luxuryBgLayer.appendChild(dot);
+                }
+            }
+            createLuxuryGoldDust();
+
+            // Pesan dinamis setiap kali kado diketuk
+            const tapMessages = [
+                { main: "Ketuk lagi! Mulai goyang tuh kadonya 👀", sub: "Terus ketuk, pitanya mulai kendor..." },
+                { main: "Asyik! Sedikit lagi terbuka! ✨", sub: "Ada cahaya emas keluar dari dalam kotak!" },
+                { main: "Wahh, makin kencang goyangannya! 💓", sub: "Ayo ketuk lebih semangat lagi!" },
+                { main: "Hampir terbuka! Jangan berhenti! 🔥", sub: "Tutup kadonya sudah mau terangkat!" },
+                { main: "Satu atau dua ketukan lagi! 🎉", sub: "Bersiap untuk kejutan spesial..." },
+                { main: "DORRR!! SELAMAT ULANG TAHUN! 🥳🎂", sub: "Membuka hadiah spesial untuk Azizah..." }
+            ];
+
+            // Inisialisasi Tone.js untuk efek suara perayaan
+            async function initAudio() {
+                if (audioInitialized || typeof Tone === 'undefined') return;
+                try {
+                    await Tone.start();
+                    synth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: { type: 'triangle' },
+                        envelope: { attack: 0.02, decay: 0.2, sustain: 0.2, release: 0.8 }
+                    }).toDestination();
+                    synth.volume.value = -6;
+                    audioInitialized = true;
+                } catch (e) {
+                    console.warn("Audio tidak dapat diinisialisasi:", e);
+                }
+            }
+
+            // Mainkan nada meningkat tiap kali kado diketuk
+            function playTapSound(tapIndex) {
+                if (!audioInitialized || !synth) return;
+                try {
+                    const notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4'];
+                    const note = notes[Math.min(tapIndex - 1, notes.length - 1)];
+                    synth.triggerAttackRelease(note, '16n');
+                } catch (e) {
+                    // Abaikan jika audio diblokir browser
+                }
+            }
+
+            // Mainkan suara ledakan perayaan (fanfare) saat tutup kado terbuka
+            function playExplosionFanfare() {
+                if (!audioInitialized || !synth) return;
+                try {
+                    const now = Tone.now();
+                    synth.triggerAttackRelease(['C4', 'E4', 'G4', 'C5'], '8n', now);
+                    synth.triggerAttackRelease(['D4', 'F#4', 'A4', 'D5'], '8n', now + 0.14);
+                    synth.triggerAttackRelease(['E4', 'G#4', 'B4', 'E5'], '4n', now + 0.28);
+                } catch (e) {
+                    // Abaikan jika audio diblokir browser
+                }
+            }
+
+            // Mainkan melodi singkat Happy Birthday saat kartu muncul
+            function playBirthdayMelody() {
+                if (!audioInitialized || !synth) return;
+                try {
+                    const now = Tone.now();
+                    const melody = [
+                        { note: 'C4', time: 0, dur: '8n' },
+                        { note: 'C4', time: 0.25, dur: '8n' },
+                        { note: 'D4', time: 0.5, dur: '4n' },
+                        { note: 'C4', time: 0.9, dur: '4n' },
+                        { note: 'F4', time: 1.3, dur: '4n' },
+                        { note: 'E4', time: 1.7, dur: '2n' },
+                        { note: 'C5', time: 2.3, dur: '4n' }
+                    ];
+                    melody.forEach(item => {
+                        synth.triggerAttackRelease(item.note, item.dur, now + item.time);
+                    });
+                } catch (e) {
+                    // Abaikan jika audio diblokir browser
+                }
+            }
+
+            // Fungsi meluncurkan hujan konfeti mewah dan meriah
+            function launchCelebrationConfetti() {
+                if (typeof confetti !== 'function') return;
+
+                const luxuryColors = ['#fbbf24', '#fde047', '#f43f5e', '#fb7185', '#ffffff', '#d97706'];
+
+                // 1. Ledakan utama 360 derajat dari tengah layar
+                confetti({
+                    particleCount: 140,
+                    spread: 360,
+                    ticks: 90,
+                    gravity: 0.85,
+                    decay: 0.94,
+                    startVelocity: 42,
+                    origin: { x: 0.5, y: 0.45 },
+                    colors: luxuryColors
+                });
+
+                // 2. Ledakan bintang emas berkilau dari tengah
+                confetti({
+                    particleCount: 55,
+                    spread: 130,
+                    startVelocity: 48,
+                    scalar: 1.35,
+                    shapes: ['star'],
+                    origin: { x: 0.5, y: 0.45 },
+                    colors: ['#fde047', '#fbbf24', '#ffffff']
+                });
+
+                // 3. Tembakan meriam konfeti terus-menerus dari sisi kiri dan kanan
+                const duration = 4500;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 7,
+                        angle: 60,
+                        spread: 70,
+                        startVelocity: 55,
+                        origin: { x: 0, y: 0.72 },
+                        colors: luxuryColors
+                    });
+                    confetti({
+                        particleCount: 7,
+                        angle: 120,
+                        spread: 70,
+                        startVelocity: 55,
+                        origin: { x: 1, y: 0.72 },
+                        colors: luxuryColors
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+
+                // 4. Ledakan kembang api susulan bertingkat di langit layar
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 85,
+                        spread: 110,
+                        startVelocity: 38,
+                        origin: { x: 0.22, y: 0.32 },
+                        colors: luxuryColors
+                    });
+                    confetti({
+                        particleCount: 85,
+                        spread: 110,
+                        startVelocity: 38,
+                        origin: { x: 0.78, y: 0.32 },
+                        colors: luxuryColors
+                    });
+                }, 600);
+
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 95,
+                        spread: 130,
+                        startVelocity: 40,
+                        shapes: ['star', 'circle'],
+                        origin: { x: 0.5, y: 0.25 },
+                        colors: ['#fde047', '#fbbf24', '#f43f5e', '#ffffff']
+                    });
+                }, 1350);
+            }
+
+            // Efek percikan kecil tiap kali kado diketuk
+            function launchMiniSparkle() {
+                if (typeof confetti !== 'function') return;
+                confetti({
+                    particleCount: 18,
+                    spread: 55,
+                    startVelocity: 24,
+                    scalar: 0.8,
+                    shapes: ['star', 'circle'],
+                    origin: { y: 0.5 },
+                    colors: ['#f43f5e', '#fbbf24', '#fde047', '#ffffff']
+                });
+            }
+
+            // Handler utama ketika kado diklik/diketuk
+            async function handleGiftTap() {
+                if (isOpened) return;
+
+                // Inisialisasi audio pada interaksi pertama pengguna
+                await initAudio();
+
+                currentTaps++;
+                playTapSound(currentTaps);
+
+                // Update Progress Bar
+                const percentage = Math.min((currentTaps / MAX_TAPS) * 100, 100);
+                progressBar.style.width = `${percentage}%`;
+
+                // Perbesar aura cahaya di belakang kado
+                const glowScale = 1 + (currentTaps * 0.08);
+                giftGlow.style.transform = `scale(${glowScale})`;
+                giftGlow.style.opacity = Math.min(0.45 + (currentTaps * 0.08), 0.95);
+
+                // Update teks instruksi
+                const msgIndex = Math.min(currentTaps - 1, tapMessages.length - 1);
+                instructionText.textContent = tapMessages[msgIndex].main;
+                subInstruction.textContent = tapMessages[msgIndex].sub;
+
+                // Tampilkan popup kecil "Tap!" di sudut kado
+                const feedbackWords = ["Tap! ✨", "Lagi! 💫", "Ayo! 🌟", "Hampir! 🔥", "Dikit Lagi! 💛", "Siap-siap! 👑", "DORRR!! 🎉"];
+                tapFeedback.textContent = feedbackWords[Math.min(currentTaps - 1, feedbackWords.length - 1)];
+                tapFeedback.style.opacity = '1';
+                tapFeedback.style.transform = 'translateY(-14px) scale(1.15)';
+                setTimeout(() => {
+                    tapFeedback.style.opacity = '0';
+                    tapFeedback.style.transform = 'translateY(0) scale(1)';
+                }, 380);
+
+                // Cek apakah ketukan sudah mencapai batas untuk membuka kado
+                if (currentTaps >= MAX_TAPS) {
+                    openGiftSequence();
+                } else {
+                    // Animasi guncangan biasa + percikan kecil
+                    giftBoxWrapper.classList.remove('gift-float', 'gift-shake');
+                    void giftBoxWrapper.offsetWidth; // Trigger reflow agar animasi ulang
+                    giftBoxWrapper.classList.add('gift-shake');
+                    launchMiniSparkle();
+                }
+            }
+
+            // Rangkaian animasi pembukaan kado yang meriah
+            function openGiftSequence() {
+                isOpened = true;
+
+                // 1. Efek tegangan (charge-up) sebelum tutup terlempar
+                giftBoxWrapper.classList.remove('gift-float', 'gift-shake');
+                void giftBoxWrapper.offsetWidth;
+                giftBoxWrapper.classList.add('gift-charge');
+
+                setTimeout(() => {
+                    giftBoxWrapper.classList.remove('gift-charge');
+
+                    // 2. Tutup kado terbang tinggi + pancaran sinar emas + gelombang kejut ganda + kilatan cahaya
+                    giftLid.classList.add('lid-open');
+                    giftLightBeams.classList.add('light-beam-active');
+                    giftShockwave.classList.add('shockwave-active');
+                    giftShockwave2.classList.add('shockwave-delayed');
+                    celebrationFlash.classList.add('flash-active');
+
+                    // 3. Ledakan konfeti & suara fanfare perayaan
+                    launchCelebrationConfetti();
+                    playExplosionFanfare();
+                }, 520);
+
+                // 4. Badan kado menghilang setelah memancarkan kejutan
+                setTimeout(() => {
+                    giftBody.classList.add('box-vanish');
+                }, 980);
+
+                // 5. Transisi ke Kartu Ucapan Selamat Ulang Tahun
+                setTimeout(() => {
+                    giftStage.classList.add('hidden');
+                    greetingStage.classList.remove('hidden');
+                    greetingStage.classList.add('card-appear');
+                    playBirthdayMelody();
+                    startBalloons();
+                }, 1550);
+            }
+
+            // Reset kembali ke tampilan awal kado
+            function resetGiftStage() {
+                currentTaps = 0;
+                isOpened = false;
+                stopBalloons();
+                if (wishStatus) wishStatus.classList.add('hidden');
+
+                // Reset progress & teks
+                progressBar.style.width = '0%';
+                instructionText.textContent = "Ketuk Kadonya Berkali-kali! 🎁";
+                subInstruction.textContent = "Ayo buka perlahan untuk melihat kejutan di dalamnya...";
+                giftGlow.style.transform = 'scale(1)';
+                giftGlow.style.opacity = '0.45';
+
+                // Reset semua kelas animasi SVG & efek ledakan
+                giftLid.classList.remove('lid-open');
+                giftBody.classList.remove('box-vanish');
+                giftLightBeams.classList.remove('light-beam-active');
+                giftShockwave.classList.remove('shockwave-active');
+                giftShockwave2.classList.remove('shockwave-delayed');
+                celebrationFlash.classList.remove('flash-active');
+                giftBoxWrapper.classList.remove('gift-shake', 'gift-charge');
+                giftBoxWrapper.classList.add('gift-float');
+
+                // Tukar tampilan fase
+                greetingStage.classList.add('hidden');
+                greetingStage.classList.remove('card-appear');
+                giftStage.classList.remove('hidden');
+            }
+
+            // Event Listeners untuk klik/sentuh & keyboard (Aksesibilitas)
+            giftBoxWrapper.addEventListener('click', handleGiftTap);
+            giftBoxWrapper.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleGiftTap();
+                }
+            });
+
+            btnMoreConfetti.addEventListener('click', () => {
+                launchCelebrationConfetti();
+                playBirthdayMelody();
+            });
+
+            btnReplayGift.addEventListener('click', resetGiftStage);
+        });
+    </script>
+</body>
+</html>
